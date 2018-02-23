@@ -1,1 +1,24 @@
+html {
+    font-family: 'Roboto', sans-serif;
+}
 
+h1 {
+    text-transform: uppercase;
+    font-size: 18px;
+}
+
+/* kleuren voor schaakboord */
+div {
+    float: left;
+    width: 75px;
+    height:75px;
+}
+.first {
+    clear: left;
+}
+.black {
+    background: black;
+}
+.white {
+    background: white;
+}
