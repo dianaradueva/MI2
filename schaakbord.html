@@ -1,1 +1,30 @@
-
+<!DOCTYPE html>
+<html lang="nl">
+    <head>
+        <meta charset="utf-8" />
+        <title>Opdracht 5 week 2 - dambord</title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="opdracht5.css">
+    </head>    
+    <body>
+        <script type="text/javascript"> "use strict";
+        var i, j, k;
+        
+        for (i = 0; i < 10; i++)
+            {
+                for (j = 0; j < 10; j++)
+                    {
+                        k = '';
+                        
+                        if (j == 0) k = 'first ';
+                        k += (i % 2 == j % 2) ? 'white' : 'black';
+                        
+                        var veld = document.createElement('div');
+                        veld.className = k;
+                        document.body.appendChild(veld);
+                    }
+            }
+    </script>
+    </body>
+</html>
