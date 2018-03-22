@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <meta>
+    <style>
+        #player {
+            top: 50px;
+            left: 50px;
+            height: 20px;
+            width: 20px;
+            border: solid 3px black;
+            position: absolute;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+    </script>
+    <script src="../Jquery.js"></script>
+
+</head>
+
+<body>
+    <div id="player"></div>
+    <script>
+        var x = 50;
+        var y = 50;
+        $("html").keydown(function() {
+            switch (event.which) {
+                case 37:
+                    ///alert("U drukte de toets: left arrow in.");
+                    x -= 50;
+                    $("#player").css("margin-left", x + "px");
+                    break;
+                case 38:
+                    //alert("U drukte de toets: up arrow in.");
+                    y -= 50;
+                    $("#player").css("margin-top", y + "px");
+                    break;
+                case 39:
+                    //alert("U drukte de toets: right arrow in.");
+                    x += 50;
+                    $("#player").css("margin-left", x + "px");
+                    break;
+                case 40:
+                    //alert("U drukte de toets: down arrow in.");
+                    y += 50;
+                    $("#player").css("margin-top", y + "px");
+                    break;
+                default:
+                    alert("U drukte de toets: " + event.which + " in.");
+            }
+        })
+
+        function move(richting) {
+
+        }
+    </script>
+</body>
+
+</html>
