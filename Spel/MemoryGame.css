@@ -1,1 +1,13 @@
+.memorybord{
+    display: block;
+    background-color: #424147;
+    border: #040404 2px solid;
+    width: 800px;
+    height: 600px;
 
+}
+
+.memorybord > div{
+    
+    
+}
