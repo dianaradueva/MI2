@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script>
+
+		var mc = 0;
+		var posx = 3;
+		var posy = 3;
+		var pos2x = 3;
+		var pos2y = 3;
+		var targ = "";
+		var start = 0;
+
+		function slidepiece()
+		{
+			if(start == 1)
+			{
+				var evt = window.event
+				var target = evt.target.id
+				var trgbg = document.getElementById(target).getAttribute("background")
+				var placeholder = ''
+				var xaxis = 0;
+				var yaxis = 0;
+				var mobxaxis = 0;
+				var mobyaxis = 0;
+				var attack = 5;
+				var pos1 = 0;
+				var pos2 = 0;
+
+				for(x=0;x<4;x++)
+				{
+					for(y=0;y<4;y++)
+					{
+						placeholder = document.getElementById("0"+x+"0"+y).getAttribute("background")
+
+						if(placeholder == trgbg)
+						{
+							xaxis=x
+							yaxis=y
+						}
+						if(placeholder == "16.png")
+						{
+							mobxaxis=x
+							mobyaxis=y			
+						}
+					}
+				}
+
+				pos1=mobxaxis-xaxis
+				pos2=mobyaxis-yaxis
+				
+				if(pos1<2 && pos1 > 0 && document.getElementById("0"+(xaxis+1)+"0"+yaxis).getAttribute("background") == "16.png")
+				{
+						document.getElementById("0"+xaxis+"0"+yaxis).setAttribute("background","16.png")
+						document.getElementById("0"+mobxaxis+"0"+mobyaxis).setAttribute("background",trgbg )
+						//up
+						mc++
+				}
+				if(pos1<0 && pos1 > -2 && document.getElementById("0"+(xaxis-1)+"0"+yaxis).getAttribute("background") == "16.png")
+				{
+						document.getElementById("0"+xaxis+"0"+yaxis).setAttribute("background","16.png")
+						document.getElementById("0"+mobxaxis+"0"+mobyaxis).setAttribute("background",trgbg )
+						//'down');
+						mc++
+				}
+				if(pos2<2 && pos2 > 0 && document.getElementById("0"+xaxis+"0"+(yaxis+1)).getAttribute("background") == "16.png")
+				{
+					
+						document.getElementById("0"+xaxis+"0"+yaxis).setAttribute("background","16.png")
+						document.getElementById("0"+mobxaxis+"0"+mobyaxis).setAttribute("background",trgbg )
+						//'left');
+						mc++
+				}
+				if(pos2<0 && pos2 > -2 && document.getElementById("0"+xaxis+"0"+(yaxis-1)).getAttribute("background") == "16.png")
+				{
+						document.getElementById("0"+xaxis+"0"+yaxis).setAttribute("background","16.png")
+						document.getElementById("0"+mobxaxis+"0"+mobyaxis).setAttribute("background",trgbg )
+						//right
+						mc++
+				}
+				gamechk()
+				updatemc()
+				}
+				else{
+					alert('Please press scramble');
+			}
+		}
+
+		function gamechk()
+		{
+			var boredchk = [];
+			var count = 0;
+			var wc=0;
+
+			for(x=0;x<4;x++)
+			{
+				for(y=0;y<4;y++)
+				{
+					boredchk[count] = document.getElementById("0"+x+"0"+y).getAttribute("background")
+					count++
+				}
+			}
+
+			for(x=0;x<16;x++)
+			{
+				switch (x)
+				{
+					case 0:
+						if(boredchk[x] == "1.png")
+						{
+							wc++
+						}
+						break;
+					case 1:
+						if(boredchk[x] == "2.png")
+						{
+							wc++
+						}
+						break;
+					case 2:
+						if(boredchk[x] == "3.png")
+						{
+							wc++
+						}
+						break;
+					case 3:
+						if(boredchk[x] == "4.png")
+						{
+							wc++
+						}
+						break;
+					case 4:
+						if(boredchk[x] == "5.png")
+						{
+							wc++
+						}
+						break;
+					case 5:
+						if(boredchk[x] == "6.png")
+						{
+							wc++
+						}
+						break;
+					case 6:
+						if(boredchk[x] == "7.png")
+						{
+							wc++
+						}
+						break;
+					case 7:
+						if(boredchk[x] == "8.png")
+						{
+							wc++
+						}
+						break;
+					case 8:
+						if(boredchk[x] == "9.png")
+						{
+							wc++
+						}
+						break;
+					case 9:
+						if(boredchk[x] == "10.png")
+						{
+							wc++
+						}
+						break;
+					case 10:
+						if(boredchk[x] == "11.png")
+						{
+							wc++
+						}
+						break;
+					case 11:
+						if(boredchk[x] == "12.png")
+						{
+							wc++
+						}
+						break;
+					case 12:
+						if(boredchk[x] == "13.png")
+						{
+							wc++
+						}
+						break;
+					case 13:
+						if(boredchk[x] == "14.png")
+						{
+							wc++
+						}
+						break;
+					case 14:
+						if(boredchk[x] == "15.png")
+						{
+							wc++
+						}
+						break;
+					case 15:
+						if(boredchk[x] == "16.png")
+						{
+							wc++
+						}
+						break;
+				}
+			}
+
+			if(wc == 16)
+			{
+				alert("winner! it took you "+mc+" move's to solve this puzzle!");
+				document.getElementById("scramble").disabled = false;
+				start = 0
+				mc=0
+				posx = 3;
+				posy = 3;
+				pos2x = 3;
+				pos2y = 3;
+				updatemc()
+			}
+		}
+
+		function updatemc()
+		{
+			document.getElementById("mc").value = mc
+		}
+
+		function scramble()
+		{
+			start = 1
+			document.getElementById("scramble").disabled = true;
+			
+			for(x=0;x<500;x++)
+			{
+				var mn =Math.round(Math.random()*100);
+
+				if(mn<26)//up
+				{
+					if(posx-1 > (-1) && posx-1 <4)
+					{
+						targ = document.getElementById("0"+(posx-1)+"0"+posy).getAttribute("background")
+						document.getElementById("0"+(posx-1)+"0"+posy).setAttribute("background","16.png")
+						document.getElementById("0"+pos2x+"0"+pos2y).setAttribute("background",targ )
+						posx--
+						pos2x=posx
+					}
+					else
+					{
+						targ = document.getElementById("0"+(posx+1)+"0"+posy).getAttribute("background")
+						document.getElementById("0"+(posx+1)+"0"+posy).setAttribute("background","16.png")
+						document.getElementById("0"+pos2x+"0"+pos2y).setAttribute("background",targ)
+						posx++
+						pos2x=posx
+					}
+				}
+				if(mn>25 && mn<51)//down
+				{
+					if(posx+1 > (-1) && posx+1 <4)
+					{
+						targ = document.getElementById("0"+(posx+1)+"0"+posy).getAttribute("background")
+						document.getElementById("0"+(posx+1)+"0"+posy).setAttribute("background","16.png")
+						document.getElementById("0"+pos2x+"0"+pos2y).setAttribute("background",targ )
+						posx++
+						pos2x=posx
+					}
+					else
+					{
+						targ = document.getElementById("0"+(posx-1)+"0"+posy).getAttribute("background")
+						document.getElementById("0"+(posx-1)+"0"+posy).setAttribute("background","16.png")
+						document.getElementById("0"+pos2x+"0"+pos2y).setAttribute("background",targ )
+						posx--
+						pos2x=posx
+					}
+				}
+				if(mn>50 && mn<76)//left +1
+				{
+					if(posy+1 > (-1) && posy+1 <4)
+					{
+						targ = document.getElementById("0"+posx+"0"+(posy+1)).getAttribute("background")
+						document.getElementById("0"+posx+"0"+(posy+1)).setAttribute("background","16.png")
+						document.getElementById("0"+pos2x+"0"+pos2y).setAttribute("background",targ )
+						posy++
+						pos2y=posy
+					}
+					else
+					{
+						targ = document.getElementById("0"+posx+"0"+(posy-1)).getAttribute("background")
+						document.getElementById("0"+posx+"0"+(posy-1)).setAttribute("background","16.png")
+						document.getElementById("0"+pos2x+"0"+pos2y).setAttribute("background",targ )
+						posy--
+						pos2y=posy
+					}
+				}
+				if(mn>75 && mn<101)//right -1
+				{
+					if(posy-1 > (-1) && posy-1 <4)
+					{
+						targ = document.getElementById("0"+posx+"0"+(posy-1)).getAttribute("background")
+						document.getElementById("0"+posx+"0"+(posy-1)).setAttribute("background","16.png")
+						document.getElementById("0"+pos2x+"0"+pos2y).setAttribute("background",targ )
+						posy--
+						pos2y=posy
+					}
+					else
+					{
+						targ = document.getElementById("0"+posx+"0"+(posy+1)).getAttribute("background")
+						document.getElementById("0"+posx+"0"+(posy+1)).setAttribute("background","16.png")
+						document.getElementById("0"+pos2x+"0"+pos2y).setAttribute("background",targ )
+						posy++
+						pos2y=posy
+					}
+				}
+			}
+		}
+
+	</script>
+
+<body>
+
+	<center>
+		<table bgcolor="white" cellspacing="0" border="1">
+			<tr>
+				<td id="0000" width="64px" height="64px" background="1.png" onmouseup="slidepiece()"></td>
+				<td id="0001" width="64px" height="64px" background="2.png" onmouseup="slidepiece()"></td>
+				<td id="0002" width="64px" height="64px" background="3.png" onmouseup="slidepiece()"></td>
+				<td id="0003" width="64px" height="64px" background="4.png" onmouseup="slidepiece()"></td>
+			</tr>
+			<tr>
+				<td id="0100" width="64px" height="64px" background="5.png" onmouseup="slidepiece()"></td>
+				<td id="0101" width="64px" height="64px" background="6.png" onmouseup="slidepiece()"></td>
+				<td id="0102" width="64px" height="64px" background="7.png" onmouseup="slidepiece()"></td>
+				<td id="0103" width="64px" height="64px" background="8.png" onmouseup="slidepiece()"></td>
+			</tr>
+			<tr>
+				<td id="0200" width="64px" height="64px" background="9.png" onmouseup="slidepiece()"></td>
+				<td id="0201" width="64px" height="64px" background="10.png" onmouseup="slidepiece()"></td>
+				<td id="0202" width="64px" height="64px" background="11.png" onmouseup="slidepiece()"></td>
+				<td id="0203" width="64px" height="64px" background="12.png" onmouseup="slidepiece()"></td>
+			</tr>
+			<tr>
+				<td id="0300" width="64px" height="64px" background="13.png" onmouseup="slidepiece()"></td>
+				<td id="0301" width="64px" height="64px" background="14.png" onmouseup="slidepiece()"></td>
+				<td id="0302" width="64px" height="64px" background="15.png" onmouseup="slidepiece()"></td>
+				<td id="0303" width="64px" height="64px" background="16.png" onmouseup="slidepiece()"></td>
+			</tr>
+		</table>
+
+		<p>Move count</p>
+		<input type="text" id="mc" value="0" readonly="readonly"><br/>
+		<input type="button" id="scramble" value="scramble" onclick="scramble()">
+	</center>
+
+</body>
+</head>
+</html>
