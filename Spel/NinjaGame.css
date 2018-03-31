@@ -1,11 +1,13 @@
 .achtergrond{
     width: 800px;
     height: 500px;
-    background-color: black;
+    background-image:url(achtergrondNinja.jpg);
     
 }
 
 #object{
+    
     width: 80px;
     height: 60px;
+    
 }
