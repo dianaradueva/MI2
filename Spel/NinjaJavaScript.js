@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 "use strict";
 var sushiIdLijst = [],
     fotolijst = ["sushi1.png", "sushi2.png", "sushi3.png", "sushi4.png", "sushi5.png", "sushi6.png", "sushi7.png", "sushi8.png", "sushi9.png", "sushi10.png"],
@@ -112,4 +110,4 @@ function startgame() {
     }
     requestAnimationFrame(startgame);
 }
->>>>>>> 8f839ba772abd61b7f97d3f0445e4df9c675cb07
+
