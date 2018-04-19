@@ -112,7 +112,7 @@ function bewaarProduct() {
     idbKeyval.set("producten", producten);
 }
 
-function haalProductenOp() {
+function haalProductenOp() { //producten tonen
     idbKeyval.get("producten").then(val =>{
         let tText = "";
         for(let i of val){
