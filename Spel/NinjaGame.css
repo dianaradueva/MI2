@@ -7,14 +7,8 @@
 }
 
 .sushi {
-
     width: 80px;
     height: 60px;
-<<<<<<< HEAD
-    position: fixed;
-}
-<<<<<<< HEAD
-    position: absolute;
-=======
->>>>>>> 4b9f0f12695944bc0ae348cf480c115b54014a91
+    position: relative;
 
+}
