@@ -6,9 +6,7 @@ var sushiIdLijst = [],
     sushiSpeedX = 0.1,
     sushiSpeedY = 1,
     totaalAantalSushis = 1,
-    initialised = false,
-    score,
-    timer = 0;
+    initialised = false;
 
 
 $(document).ready(function () {
@@ -16,7 +14,7 @@ $(document).ready(function () {
     fillSushiLijst();
     $("#startknop").click(startgame);
 
-    //setInterval(purgeSushis, 1000);
+    setInterval(purgeSushis, 1000);
 })
 
 function purgeSushis() {
@@ -40,13 +38,11 @@ function randomsushis() {
     var nieuwesushi = $("<img></img>").attr("id", totaalAantalSushis);
     nieuwesushi.addClass("sushi");
     nieuwesushi.attr("src", selectrandomimage());
-    nieuwesushi.mouseenter(sliceSushi);
     nieuwesushi.css({
-        "left": (Math.random() * 10),
-        "top": -(Math.random() * 100)
+        "margin-left": (Math.random() * 10),
+        "margin-top": (Math.random() * 100)
     });
     $("#nan2").append(nieuwesushi);
-    sushiIdLijst[totaalAantalSushis] = nieuwesushi;
     totaalAantalSushis++;
 }
 
@@ -76,10 +72,8 @@ function selectrandomimage() {
 }
 
 function sliceSushi() {
-    // totaalAantalSushis--;
     var i = this.id;
-    $("#" + i).css("z-index", "-1"); //verstopt sushis achter achtergrond
-    score += 10;
+    $("#" + i).remove();
 }
 
 function fillSushiLijst() {
@@ -107,22 +101,13 @@ function startgame() {
     //console.log("joehoe");
     var i;
     for (i = 0; i < sushiIdLijst.length; i++) {
-        sushiX = parseInt($("#" + i).css("left"));
-        sushiY = parseInt($("#" + i).css("top"));
-        console.log("sushix: " + $("#" + i).css("left"));
-        console.log("sushiY: " + $("#" + i).css("top"));
         sushiX += sushiSpeedX;
         sushiY += sushiSpeedY;
 
         //console.log(i);
-        $("#" + i).css("left", sushiX + "px");
-        $("#" + i).css("top", sushiY + "px");
+        $("#" + i).css("margin-left", sushiX + "px");
+        $("#" + i).css("margin-top", sushiY + "px");
     }
-    if (timer == 90) {
-        randomsushis();
-        timer = 0;
-
-    }
-    timer++;
     requestAnimationFrame(startgame);
 }
+
