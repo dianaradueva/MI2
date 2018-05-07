@@ -12,3 +12,14 @@
     position: relative;
 
 }
+
+.startscherm{
+    width: 500px;
+    height: 200px;
+    background-color: #D8D8D8;
+    margin: auto;
+    border: 3px solid black;
+    padding: 10px;
+    text-align: center;
+   border-radius: 2%;
+}
