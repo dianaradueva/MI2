@@ -11,6 +11,7 @@ var sushiIdLijst = [],
     timer = 0;
 
 
+
 $(document).ready(function () {
     randomsushis();
     fillSushiLijst();
@@ -80,6 +81,7 @@ function sliceSushi() {
     var i = this.id;
     $("#" + i).css("z-index", "-1"); //verstopt sushis achter achtergrond
     score += 10;
+    
 }
 
 function fillSushiLijst() {
