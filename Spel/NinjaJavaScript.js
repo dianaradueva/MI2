@@ -4,21 +4,45 @@ var sushiIdLijst = [],
     sushiX = 50,
     sushiY = 50,
     sushiSpeedX = 0.1,
-    sushiSpeedY = 1,
+    sushiSpeedY = 5,
     totaalAantalSushis = 1,
     initialised = false,
     score,
-    timer = 0;
+    timer = 0,
+    levens = 3,
+    redouane;
 
 
 
 $(document).ready(function () {
     randomsushis();
     fillSushiLijst();
-    $("#startknop").click(startgame);
+    $("#startknop").click(function () {
+        $(".startscherm").hide();
+        startgame();
+        setInterval(spawnRed1, 10000);
+    });
+
 
     //setInterval(purgeSushis, 1000);
 })
+
+
+
+function spawnRed1() {
+    redouane = $("<img src='redouane.png' id='redouane'></img>");
+    redouane.mouseenter(function () {
+        if (--levens == 0) {
+            gameOver();
+        }
+    })
+    redouane.css({
+        "left": (Math.random() * 10),
+        "top": -(Math.random() * 100)
+    });
+    $("#nan2").append(redouane);
+
+}
 
 function purgeSushis() {
     var i;
@@ -81,7 +105,7 @@ function sliceSushi() {
     var i = this.id;
     $("#" + i).css("z-index", "-1"); //verstopt sushis achter achtergrond
     score += 10;
-    
+
 }
 
 function fillSushiLijst() {
