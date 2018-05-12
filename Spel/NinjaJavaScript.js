@@ -10,7 +10,9 @@ var sushiIdLijst = [],
     score,
     timer = 0,
     levens = 3,
-    redouane;
+    redouane = $("<img src='redouane.png' id='redouane'></img>"),
+    redouaneX,
+    redouaneY;
 
 
 
@@ -20,12 +22,16 @@ $(document).ready(function () {
     $("#startknop").click(function () {
         $(".startscherm").hide();
         startgame();
-        setInterval(spawnRed1, 10000);
+        setInterval(spawnRed1, 1000);
     });
 
 
     //setInterval(purgeSushis, 1000);
 })
+
+function gameOver() {
+    $("#verlorenbox").css("display", "block");
+}
 
 
 
@@ -41,7 +47,8 @@ function spawnRed1() {
         "top": -(Math.random() * 100)
     });
     $("#nan2").append(redouane);
-
+    sushiIdLijst[totaalAantalSushis] = redouane;
+    totaalAantalSushis++;
 }
 
 function purgeSushis() {
@@ -144,6 +151,13 @@ function startgame() {
         $("#" + i).css("left", sushiX + "px");
         $("#" + i).css("top", sushiY + "px");
     }
+    redouaneX = parseInt(redouane.css("left"));
+    redouaneY = parseInt(redouane.css("top"));
+    redouaneX += sushiSpeedX;
+    redouaneY += sushiSpeedY;
+    redouane.css("left", redouaneX + "px");
+    redouane.css("top", redouaneY + "px");
+
     if (timer == 90) {
         randomsushis();
         timer = 0;
