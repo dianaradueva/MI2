@@ -14,8 +14,6 @@ var sushiIdLijst = [],
     redouaneX,
     redouaneY;
 
-
-
 $(document).ready(function () {
     randomsushis();
     fillSushiLijst();
@@ -25,14 +23,18 @@ $(document).ready(function () {
         setInterval(spawnRed1, 1000);
     });
 
-
+    $(document).ready(function () {
+        $(".options").click(function () {
+            $(".startscherm").hide();
+            $(".optiescherm").css("display", "block");
+        })
+    })
     //setInterval(purgeSushis, 1000);
 })
 
 function gameOver() {
     $("#verlorenbox").css("display", "block");
 }
-
 
 
 function spawnRed1() {
@@ -132,12 +134,11 @@ function startgame() {
         var i;
         for (i = 0; i <= sushiIdLijst.length; i++) {
             $("#" + i).mouseenter(sliceSushi);
-
         }
+
         initialised = true;
     }
-    //update();
-    //console.log("joehoe");
+
     var i;
     for (i = 0; i < sushiIdLijst.length; i++) {
         sushiX = parseInt($("#" + i).css("left"));
