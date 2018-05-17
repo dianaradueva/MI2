@@ -11,6 +11,7 @@
     height: 50px;
     margin-left: 20px;
     margin-top: 40px;
+    overflow: hidden;
     position: relative;
     float: left;
 
