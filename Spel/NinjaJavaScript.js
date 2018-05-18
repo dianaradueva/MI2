@@ -5,17 +5,18 @@ var sushiIdLijst = [],
     sushiY = 50,
     sushiSpeedX = 0.1,
     sushiSpeedY = 5,
-    totaalAantalSushis = 1,
+    totaalAantalSushis = 0,
     initialised = false,
     score,
     timer = 0,
     levens = 3,
     redouane = $("<img src='redouane.png' id='redouane'></img>"),
     redouaneX,
-    redouaneY;
+    redouaneY,
+    strikes;
 
 $(document).ready(function () {
-    randomsushis();
+    //randomsushis();
     fillSushiLijst();
     $("#startknop").click(function () {
         $(".startscherm").hide();
@@ -34,7 +35,13 @@ $(document).ready(function () {
 
 function gameOver() {
     $("#verlorenbox").css("display", "block");
+    $("#btnVerlorenTryAgain").click(function () {
+        $("#verlorenbox").css("display", "none");
+        ResetSpel();
+        $(".startscherm").show();
+    });
 }
+
 
 
 function spawnRed1() {
@@ -53,7 +60,7 @@ function spawnRed1() {
     totaalAantalSushis++;
 }
 
-function purgeSushis() {
+/*function purgeSushis() {
     var i;
     for (i = 0; i < sushiIdLijst.length; i++) {
         //console.log($("#nan").innerHeight());
@@ -67,7 +74,7 @@ function purgeSushis() {
         }
 
     }
-}
+}*/
 
 function randomsushis() {
 
@@ -79,8 +86,9 @@ function randomsushis() {
         "left": (Math.random() * 10),
         "top": -(Math.random() * 100)
     });
-    $("#nan2").append(nieuwesushi);
+
     sushiIdLijst[totaalAantalSushis] = nieuwesushi;
+    $("#nan2").append(nieuwesushi);
     totaalAantalSushis++;
 }
 
@@ -119,7 +127,7 @@ function sliceSushi() {
 
 function fillSushiLijst() {
     var i;
-    for (i = 0; i < totaalAantalSushis; i++) {
+    for (i = 0; i <= totaalAantalSushis; i++) {
         sushiIdLijst[i] = i;
     }
 }
@@ -140,18 +148,25 @@ function startgame() {
     }
 
     var i;
-    for (i = 0; i < sushiIdLijst.length; i++) {
-        sushiX = parseInt($("#" + i).css("left"));
-        sushiY = parseInt($("#" + i).css("top"));
-        console.log("sushix: " + $("#" + i).css("left"));
-        console.log("sushiY: " + $("#" + i).css("top"));
+    sushiIdLijst.forEach(function (item, index) {
+        console.log("id: " + this)
+        /*sushiX = parseInt($(this.id).css("left"));
+        sushiY = parseInt($(this.id).css("top"));
+        console.log("sushix: " + $(this.id).css("left"));
+        console.log("sushiY: " + $(this.id).css("top"));
         sushiX += sushiSpeedX;
         sushiY += sushiSpeedY;
-
+        if (sushiY > innerHeight) {
+            resetSushi(this.id)
+            AddStrike();
+        }
         //console.log(i);
-        $("#" + i).css("left", sushiX + "px");
-        $("#" + i).css("top", sushiY + "px");
-    }
+        $(this.id).css("left", sushiX + "px");
+        $(this.id).css("top", sushiY + "px");*/
+
+    });
+
+
     redouaneX = parseInt(redouane.css("left"));
     redouaneY = parseInt(redouane.css("top"));
     redouaneX += sushiSpeedX;
@@ -166,4 +181,18 @@ function startgame() {
     }
     timer++;
     requestAnimationFrame(startgame);
+}
+
+function resetSushis(id) {
+    $(id).css({
+        "left": (Math.random() * 10),
+        "top": -(Math.random() * 100)
+    });
+}
+
+function AddStrike() {
+    strikes += 1;
+    if (strikes == 3) {
+        gameOver();
+    }
 }
