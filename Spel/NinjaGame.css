@@ -129,5 +129,15 @@ p {
 }
 
 #verlorenbox {
+    width: 60%;
+    height: 35%;
+    background-color: #D8D8D8;
+    margin-top: 10%;
+    border: 3px solid black;
+    padding: 3%;
+    text-align: left;
+    border-radius: 2%;
     display: none;
+    position: absolute;
+    left: 20%;
 }
