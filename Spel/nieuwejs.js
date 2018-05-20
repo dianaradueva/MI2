@@ -24,6 +24,7 @@ $(document).ready(function () {
     });
 
     //setInterval(purgeSushis, 1000);
+    
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         // naar landscape gaan
         if (window.innerHeight > window.innerWidth) {

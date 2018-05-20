@@ -1,5 +1,7 @@
 "use strict";
 var sushiIdLijst = [],
+    redouaneLijst = [],
+    aantalRedouanes = 0,
     fotolijst = ["sushi1.png", "sushi2.png", "sushi3.png", "sushi4.png", "sushi5.png", "sushi6.png", "sushi7.png", "sushi8.png", "sushi9.png", "sushi10.png"],
     sushiX = 50,
     sushiY = 50,
@@ -7,81 +9,144 @@ var sushiIdLijst = [],
     sushiSpeedY = 5,
     totaalAantalSushis = 0,
     initialised = false,
-    score,
+    score = 0,
     timer = 0,
     levens = 3,
     redouane = $("<img src='redouane.png' id='redouane'></img>"),
     redouaneX,
     redouaneY,
-    strikes;
+    spawnredinterval,
+    spawnsushiInterval,
+    animationframe,
+    optionsToggled = false;
 
 $(document).ready(function () {
     //randomsushis();
     fillSushiLijst();
-    $("#startknop").click(function () {
+    $("#startknop").on('click touchstart', function () {
         $(".startscherm").hide();
         startgame();
-        setInterval(spawnRed1, 1000);
+        UpdateScore();
+        spawnredinterval = setInterval(spawnRed1, 1000);
     });
 
-    $(document).ready(function () {
-        $(".options").click(function () {
+    $(".options").on('click touchstart', function () {
+        if (!optionsToggled) {
+
+
             $(".startscherm").hide();
             $(".optiescherm").css("display", "block");
-        })
+            optionsToggled = true;
+        } else {
+            optionsToggled = false;
+            $(".startscherm").show();
+            $(".optiescherm").css("display", "none");
+        }
+
     })
-    //setInterval(purgeSushis, 1000);
+
+    $("#optiescherm").css("display", "none");
+
+    $("#btnTraagSpeed").on("click", function () {
+        sushiSpeedY = 3;
+    })
+    $("#btnMiddleSpeed").on("click", function () {
+        sushiSpeedY = 5;
+    })
+    $("#btnSnelSpeed").on("click", function () {
+        sushiSpeedY = 7;
+    })
+
+
 })
 
 function gameOver() {
+    console.log("game over");
     $("#verlorenbox").css("display", "block");
-    $("#btnVerlorenTryAgain").click(function () {
+    $("#btnVerlorenTryAgain").on('click touchstart', function () {
         $("#verlorenbox").css("display", "none");
-        ResetSpel();
+
         $(".startscherm").show();
     });
+    ResetSpel();
+}
+
+function ResetSpel() {
+    sushiIdLijst = [];
+    totaalAantalSushis = 0;
+    aantalRedouanes = 0;
+    redouaneLijst = [];
+    levens = 3;
+    $(".sushi").each(function () {
+        $("#" + this.id).remove();
+    });
+    $(".redouane").each(function () {
+        $("#" + this.id).remove();
+    })
+    clearInterval(spawnredinterval);
+    clearInterval(spawnsushiInterval);
+    cancelAnimationFrame(animationframe);
+    $(".startscherm").show();
+
+}
+
+function UpdateLives() {
+    $(".levens").html("Levens:");
+    $(".levens").append(levens);
 }
 
 
-
 function spawnRed1() {
-    redouane = $("<img src='redouane.png' id='redouane'></img>");
+    redouane = $("<img src='redouane.png'></img>").attr("id", "r" + aantalRedouanes);
+    redouane.addClass('redouane');
     redouane.mouseenter(function () {
-        if (--levens == 0) {
+        sliceRedouane("r" + aantalRedouanes);
+        console.log(levens);
+        if (--levens <= 0) {
             gameOver();
         }
-    })
+        UpdateLives();
+    });
     redouane.css({
         "left": (Math.random() * 10),
         "top": -(Math.random() * 100)
     });
     $("#nan2").append(redouane);
-    sushiIdLijst[totaalAantalSushis] = redouane;
-    totaalAantalSushis++;
+    redouaneLijst[aantalRedouanes] = redouane;
+    aantalRedouanes++;
 }
 
-/*function purgeSushis() {
+//sushis snijden
+function purgeSushis() {
     var i;
     for (i = 0; i < sushiIdLijst.length; i++) {
-        //console.log($("#nan").innerHeight());
-        console.log("de sushi " + i + "heeft:" + $("#" + sushiIdLijst[i]).css("margin-top"));
+        ////console.log($("#nan").innerHeight());
+        //console.log("de sushi " + i + "heeft:" + $("#" + sushiIdLijst[i]).css("margin-top"));
 
         if ($("#" + sushiIdLijst[i]).css("margin-top") > $("#nan").innerHeight()) {
-            console.log("sushi " + i + " has been purged, margin-top:" + $("#" + i).css("margin-top"));
+            //console.log("sushi " + i + " has been purged, margin-top:" + $("#" + i).css("margin-top"));
             $("#" + sushiIdLijst[i]).remove();
             //sushiLijst[i].css("display", "none");
             sushiIdLijst.splice(i - 1, 1);
         }
 
     }
-}*/
+}
+
+//random sushis uit de sushilijst laten verschijnen
 
 function randomsushis() {
 
     var nieuwesushi = $("<img></img>").attr("id", totaalAantalSushis);
     nieuwesushi.addClass("sushi");
     nieuwesushi.attr("src", selectrandomimage());
-    nieuwesushi.mouseenter(sliceSushi);
+    nieuwesushi.mouseenter(function () {
+        sliceSushi(this.id);
+    });
+    nieuwesushi.on('click touchstart', function () {
+        sliceSushi(this.id);
+    });
+
     nieuwesushi.css({
         "left": (Math.random() * 10),
         "top": -(Math.random() * 100)
@@ -117,13 +182,28 @@ function selectrandomimage() {
     }
 }
 
-function sliceSushi() {
+function sliceSushi(id) {
     // totaalAantalSushis--;
-    var i = this.id;
-    $("#" + i).css("z-index", "-1"); //verstopt sushis achter achtergrond
-    score += 10;
+    console.log("sushi wordt gesliced");
+    $("#" + id).remove(); //verstopt sushis achter achtergrond
+    score = 10 + score;
+    UpdateScore();
 
 }
+
+function sliceRedouane(id) {
+    console.log("redouane wordt gesliced");
+    console.log(id);
+    $("#" + id).remove();
+}
+
+function UpdateScore() {
+    console.log("score updated");
+    $(".score").html("Score:");
+    $(".score").append(score);
+}
+
+
 
 function fillSushiLijst() {
     var i;
@@ -148,46 +228,48 @@ function startgame() {
     }
 
     var i;
-    sushiIdLijst.forEach(function (item, index) {
-        console.log("id: " + this)
-        /*sushiX = parseInt($(this.id).css("left"));
-        sushiY = parseInt($(this.id).css("top"));
-        console.log("sushix: " + $(this.id).css("left"));
-        console.log("sushiY: " + $(this.id).css("top"));
+    for (i = 0; i < sushiIdLijst.length; i++) {
+        ////console.log("id: " + i)
+        sushiX = parseInt($("#" + i).css("left"));
+        sushiY = parseInt($("#" + i).css("top"));
+        ////console.log("sushiX: " + sushiX);
+        ////console.log("sushiY: " + sushiY);
         sushiX += sushiSpeedX;
         sushiY += sushiSpeedY;
-        if (sushiY > innerHeight) {
-            resetSushi(this.id)
+        if (sushiY > $("#nan2").css("height")) {
+            resetSushi("#" + i)
             AddStrike();
         }
-        //console.log(i);
-        $(this.id).css("left", sushiX + "px");
-        $(this.id).css("top", sushiY + "px");*/
+        //console.log("sushiX:" + sushiX + "sushiY:" + sushiY);
+        $("#" + i).css("left", sushiX + "px");
+        $("#" + i).css("top", sushiY + "px");
 
-    });
-
-
-    redouaneX = parseInt(redouane.css("left"));
-    redouaneY = parseInt(redouane.css("top"));
-    redouaneX += sushiSpeedX;
-    redouaneY += sushiSpeedY;
-    redouane.css("left", redouaneX + "px");
-    redouane.css("top", redouaneY + "px");
-
+    };
+    i = 0;
+    for (i; i < redouaneLijst.length; i++) {
+        redouaneX = parseInt($("#r" + i).css("left"));
+        redouaneY = parseInt($("#r" + i).css("top"));
+        redouaneX += sushiSpeedX;
+        redouaneY += sushiSpeedY;
+        redouane.css("left", redouaneX + "px");
+        redouane.css("top", redouaneY + "px");
+    }
     if (timer == 90) {
         randomsushis();
         timer = 0;
 
     }
     timer++;
-    requestAnimationFrame(startgame);
+    animationframe = requestAnimationFrame(startgame);
 }
 
-function resetSushis(id) {
+function resetSushi(id) {
+    //console.log("sushi herzet: " + id);
     $(id).css({
         "left": (Math.random() * 10),
         "top": -(Math.random() * 100)
     });
+    //console.log("new top is: " + $(id).css("top"));
 }
 
 function AddStrike() {

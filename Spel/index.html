@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="NinjaGame.css" />
-    <script src="../Jquery.js"></script>
+    <script src="Jquery.js"></script>
     <!-- <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jqyery-1.7.1.js"></script> -->
 
     <title>Ninja Game</title>
@@ -16,8 +16,8 @@
         <p>Snij de sushi voor ze naar beneden rolt!</p>
         <p>Maar let op!</p>
         <p> De wilde Redouane haat sushi en wil je tegenwerken!</p><button id="startknop">Start</button></div>
+    <div class="levens">Levens:</div>
     <div class="score">
-        <p id="aantalscore">Score:</p>
     </div>
     <button class="options">Opties</button>
     <div class="achtergrond" id="nan">
@@ -26,8 +26,9 @@
 
         <div class="optiescherm">
             <p id="titelopties">Kies de snelheid van de sushis en frequentie van Redouane.</p>
-            <p>Snelheid: <button>Traag</button> <button>Middelmatig</button><button>Snel</button> </p>
+            <p>Snelheid: <button id="btnTraagSpeed">Traag</button><button id="btnMiddleSpeed">Middelmatig</button><button id="btnSnelSpeed">Snel</button> </p>
             <p>Redouane: <button>Traag</button><button>Middelmatig</button><button>Snel</button></p>
+            <button id="terugknop">Terug</button>
         </div>
         <div id="verlorenbox">
             <p> Mwoehahah de Redouane heeft je gedood</p>

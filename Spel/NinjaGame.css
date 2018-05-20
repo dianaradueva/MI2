@@ -26,11 +26,23 @@ button {
     overflow: hidden;
 }
 
-.score {
+.levens {
     width: 85px;
-    height: 50px;
+    height: 35px;
     left: 5%;
     top: 53%;
+    position: absolute;
+    color: white;
+    font-family: fantasy;
+    font-size: 20px;
+
+}
+
+.score {
+    width: 85px;
+    height: 30px;
+    left: 5%;
+    top: 57%;
     position: absolute;
     color: white;
     font-family: fantasy;
@@ -60,14 +72,21 @@ button {
 .sushi {
     width: 80px;
     height: 60px;
-    position: absolute;
+    position: relative;
 
+}
+
+#nan2 {
+    height: 100vh;
+    width: 100vw;
 }
 
 .redouane {
     width: 80px;
     height: 60px;
-    position: absolute;
+    left: 0;
+    top: 0;
+    position: relative;
 }
 
 
@@ -101,8 +120,8 @@ button {
 #titelopties {
     font-size: 20px;
     font-weight: bold;
-    margin-top: 5%;
-    margin-bottom: 10%;
+    margin-top: 4%;
+    margin-bottom: 6%;
 }
 
 #titel {
@@ -126,6 +145,11 @@ p {
     font-size: 20px;
     padding: inherit;
     border-radius: 5px;
+}
+
+#terugknop {
+    margin-left: 80%;
+    margin-top: 1%;
 }
 
 #verlorenbox {
