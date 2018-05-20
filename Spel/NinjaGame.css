@@ -64,6 +64,11 @@ button {
 
 }
 
+#teruggaan {
+    font-size: 16px;
+    margin-top: 10%;
+}
+
 
 #aantalscore {
     font-size: 20px;
@@ -107,7 +112,7 @@ button {
     width: 60%;
     height: 35%;
     background-color: #D8D8D8;
-    margin-top: 10%;
+    top: 10%;
     border: 3px solid black;
     padding: 3%;
     text-align: left;
@@ -156,7 +161,7 @@ p {
     width: 60%;
     height: 35%;
     background-color: #D8D8D8;
-    margin-top: 10%;
+    top: 10%;
     border: 3px solid black;
     padding: 3%;
     text-align: left;
@@ -164,4 +169,5 @@ p {
     display: none;
     position: absolute;
     left: 20%;
+    text-align: center;
 }

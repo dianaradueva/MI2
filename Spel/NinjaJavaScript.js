@@ -1,4 +1,6 @@
 "use strict";
+
+//variabelen
 var sushiIdLijst = [],
     redouaneLijst = [],
     aantalRedouanes = 0,
@@ -20,6 +22,8 @@ var sushiIdLijst = [],
     animationframe,
     optionsToggled = false;
 
+
+//start van het spel
 $(document).ready(function () {
     //randomsushis();
     fillSushiLijst();
@@ -60,16 +64,20 @@ $(document).ready(function () {
 
 })
 
+//wanneer de speler verliest, toon de "verlorenbox" +opnieuw starten wanneer op "probeer opnieuw" wordt gedrukt
 function gameOver() {
     console.log("game over");
     $("#verlorenbox").css("display", "block");
     $("#btnVerlorenTryAgain").on('click touchstart', function () {
         $("#verlorenbox").css("display", "none");
 
-        $(".startscherm").show();
+
+        //$(".startscherm").show();
     });
     ResetSpel();
 }
+
+//het spel resetten. levens en score op 0
 
 function ResetSpel() {
     sushiIdLijst = [];
@@ -95,6 +103,7 @@ function UpdateLives() {
     $(".levens").append(levens);
 }
 
+//wanneer je Redouane raakt, ben je een leven kwijt.
 
 function spawnRed1() {
     redouane = $("<img src='redouane.png'></img>").attr("id", "r" + aantalRedouanes);
@@ -157,6 +166,7 @@ function randomsushis() {
     totaalAantalSushis++;
 }
 
+//willekeurige foto selecteren uit de lijst
 function selectrandomimage() {
     var random = Math.random();
     if (random > 0.90) {
@@ -278,3 +288,5 @@ function AddStrike() {
         gameOver();
     }
 }
+/*Het spel is nog niet volledig af. Ik heb het spel wel in landscape kunnen zetten, maar de afmetingen kloppen niet, waardoor het niet mooi uitziet in landscape. Ook de knoppen om Redouane sneller te laten bewegen zijn niet af. Er zijn ook andere details die niet af zijn.
+ */
